@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>白河野攀线路查询 - APP原型</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* iPhone 15 Pro 尺寸模拟 */
+        .phone-container {
+            width: 393px;
+            height: 852px;
+            margin: 20px auto;
+            background: #000;
+            border-radius: 47px;
+            padding: 8px;
+            box-shadow: 0 0 50px rgba(0,0,0,0.3);
+        }
+        
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: #f8f9fa;
+            border-radius: 39px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* 状态栏样式 */
+        .status-bar {
+            height: 47px;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        /* 底部导航栏 */
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 83px;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding-bottom: 20px;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: #9ca3af;
+            transition: color 0.2s;
+        }
+        
+        .nav-item.active {
+            color: #ff6b35;
+        }
+        
+        /* 页面容器 */
+        .page {
+            padding: 20px;
+            padding-bottom: 103px;
+            height: calc(100% - 47px);
+            overflow-y: auto;
+        }
+        
+        /* 卡片样式 */
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        /* 渐变按钮 */
+        .gradient-btn {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 24px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        
+        .gradient-btn:hover {
+            transform: translateY(-1px);
+        }
+        
+        /* 难度标签 */
+        .difficulty-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .difficulty-5a { background: #dcfce7; color: #166534; }
+        .difficulty-5b { background: #fef3c7; color: #92400e; }
+        .difficulty-5c { background: #fed7aa; color: #ea580c; }
+        .difficulty-6a { background: #fecaca; color: #dc2626; }
+        .difficulty-6b { background: #e0e7ff; color: #3730a3; }
+        .difficulty-6c { background: #ddd6fe; color: #6b21a8; }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+<!-- 启动页 -->
+<div class="phone-container">
+    <div class="phone-screen">
+        <div class="status-bar">
+            <div>9:41</div>
+            <div>白河野攀</div>
+            <div class="flex gap-1">
+                <i class="fas fa-signal text-sm"></i>
+                <i class="fas fa-wifi text-sm"></i>
+                <i class="fas fa-battery-three-quarters text-sm"></i>
+            </div>
+        </div>
+        
+        <div class="flex flex-col items-center justify-center h-full bg-gradient-to-br from-orange-400 via-red-500 to-pink-500">
+            <div class="text-white text-center mb-8">
+                <i class="fas fa-mountain text-6xl mb-4"></i>
+                <h1 class="text-3xl font-bold mb-2">白河野攀</h1>
+                <p class="text-lg opacity-90">线路查询</p>
+            </div>
+            <div class="text-white text-sm opacity-75">发现最美的攀岩路线</div>
+        </div>
+    </div>
+</div>
+
+<!-- 首页 -->
+<div class="phone-container">
+    <div class="phone-screen">
+        <div class="status-bar">
+            <div>9:41</div>
+            <div>白河野攀</div>
+            <div class="flex gap-1">
+                <i class="fas fa-signal text-sm"></i>
+                <i class="fas fa-wifi text-sm"></i>
+                <i class="fas fa-battery-three-quarters text-sm"></i>
+            </div>
+        </div>
+        
+        <div class="page">
+            <!-- 搜索栏 -->
+            <div class="card mb-6 p-4">
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-search text-gray-400"></i>
+                    <input type="text" placeholder="搜索岩场、线路..." class="flex-1 outline-none text-gray-700">
+                    <button class="text-orange-500">
+                        <i class="fas fa-sliders-h"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 快速导航 -->
+            <div class="grid grid-cols-4 gap-4 mb-6">
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                        <i class="fas fa-map-marked-alt text-orange-500"></i>
+                    </div>
+                    <span class="text-sm text-gray-600">附近岩场</span>
+                </div>
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                        <i class="fas fa-star text-blue-500"></i>
+                    </div>
+                    <span class="text-sm text-gray-600">热门线路</span>
+                </div>
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                        <i class="fas fa-chart-line text-green-500"></i>
+                    </div>
+                    <span class="text-sm text-gray-600">难度筛选</span>
+                </div>
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                        <i class="fas fa-heart text-purple-500"></i>
+                    </div>
+                    <span class="text-sm text-gray-600">我的收藏</span>
+                </div>
+            </div>
+            
+            <!-- 热门岩场 -->
+            <div class="mb-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-bold text-gray-800">热门岩场</h2>
+                    <button class="text-orange-500 text-sm">查看更多</button>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="card overflow-hidden">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=200&fit=crop" 
+                                 alt="白河峡谷" class="w-full h-32 object-cover">
+                            <div class="absolute top-2 right-2 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded">
+                                4.8 ⭐
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-gray-800 mb-1">白河峡谷</h3>
+                            <p class="text-sm text-gray-600 mb-2">北京 · 密云区</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex gap-2">
+                                    <span class="difficulty-badge difficulty-5a">5a</span>
+                                    <span class="difficulty-badge difficulty-6a">6a</span>
+                                </div>
+                                <span class="text-sm text-gray-500">158条线路</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card overflow-hidden">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1464822759844-d150baec843a?w=400&h=200&fit=crop" 
+                                 alt="后河峡谷" class="w-full h-32 object-cover">
+                            <div class="absolute top-2 right-2 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded">
+                                4.6 ⭐
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-gray-800 mb-1">后河峡谷</h3>
+                            <p class="text-sm text-gray-600 mb-2">北京 · 怀柔区</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex gap-2">
+                                    <span class="difficulty-badge difficulty-5b">5b</span>
+                                    <span class="difficulty-badge difficulty-6b">6b</span>
+                                </div>
+                                <span class="text-sm text-gray-500">89条线路</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 最近更新 -->
+            <div>
+                <h2 class="text-lg font-bold text-gray-800 mb-4">最近更新</h2>
+                <div class="space-y-3">
+                    <div class="flex items-center gap-3 p-3 bg-white rounded-lg">
+                        <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-plus text-orange-500 text-sm"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm font-medium text-gray-800">新增线路：红墙左侧 6a</p>
+                            <p class="text-xs text-gray-500">白河峡谷 · 2小时前</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center gap-3 p-3 bg-white rounded-lg">
+                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-edit text-blue-500 text-sm"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm font-medium text-gray-800">线路信息更新：经典路线</p>
+                            <p class="text-xs text-gray-500">后河峡谷 · 1天前</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 底部导航 -->
+        <div class="bottom-nav">
+            <div class="nav-item active">
+                <i class="fas fa-home text-xl"></i>
+                <span class="text-xs">首页</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-search text-xl"></i>
+                <span class="text-xs">搜索</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-map text-xl"></i>
+                <span class="text-xs">地图</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-heart text-xl"></i>
+                <span class="text-xs">收藏</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-user text-xl"></i>
+                <span class="text-xs">我的</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 岩场列表页 -->
+<div class="phone-container">
+    <div class="phone-screen">
+        <div class="status-bar">
+            <div>9:41</div>
+            <div>岩场列表</div>
+            <div class="flex gap-1">
+                <i class="fas fa-signal text-sm"></i>
+                <i class="fas fa-wifi text-sm"></i>
+                <i class="fas fa-battery-three-quarters text-sm"></i>
+            </div>
+        </div>
+        
+        <div class="page">
+            <!-- 顶部筛选 -->
+            <div class="flex gap-2 mb-4">
+                <button class="flex-1 gradient-btn text-sm">
+                    <i class="fas fa-map-marker-alt mr-2"></i>距离
+                </button>
+                <button class="flex-1 bg-white border border-gray-200 text-gray-700 rounded-lg px-4 py-2 text-sm">
+                    <i class="fas fa-star mr-2"></i>评分
+                </button>
+                <button class="flex-1 bg-white border border-gray-200 text-gray-700 rounded-lg px-4 py-2 text-sm">
+                    <i class="fas fa-chart-line mr-2"></i>难度
+                </button>
+            </div>
+            
+            <!-- 视图切换 -->
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-sm text-gray-600">找到 12 个岩场</span>
+                <div class="flex bg-gray-100 rounded-lg p-1">
+                    <button class="px-3 py-1 bg-white rounded text-sm shadow-sm">
+                        <i class="fas fa-list"></i>
+                    </button>
+                    <button class="px-3 py-1 text-gray-500 text-sm">
+                        <i class="fas fa-th-large"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 岩场列表 -->
+            <div class="space-y-4">
+                <div class="card">
+                    <div class="flex">
+                        <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=120&h=120&fit=crop" 
+                             alt="白河峡谷" class="w-24 h-24 object-cover">
+                        <div class="flex-1 p-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-gray-800">白河峡谷</h3>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                    <span class="text-sm text-gray-600">4.8</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-2">北京 · 密云区 · 距离 25km</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex gap-1">
+                                    <span class="difficulty-badge difficulty-5a text-xs">5a</span>
+                                    <span class="difficulty-badge difficulty-6a text-xs">6a</span>
+                                </div>
+                                <span class="text-xs text-gray-500">158条线路</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="flex">
+                        <img src="https://images.unsplash.com/photo-1464822759844-d150baec843a?w=120&h=120&fit=crop" 
+                             alt="后河峡谷" class="w-24 h-24 object-cover">
+                        <div class="flex-1 p-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-gray-800">后河峡谷</h3>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                    <span class="text-sm text-gray-600">4.6</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-2">北京 · 怀柔区 · 距离 32km</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex gap-1">
+                                    <span class="difficulty-badge difficulty-5b text-xs">5b</span>
+                                    <span class="difficulty-badge difficulty-6b text-xs">6b</span>
+                                </div>
+                                <span class="text-xs text-gray-500">89条线路</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="flex">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=120&h=120&fit=crop" 
+                             alt="龙庆峡" class="w-24 h-24 object-cover">
+                        <div class="flex-1 p-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-gray-800">龙庆峡</h3>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                    <span class="text-sm text-gray-600">4.4</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-2">北京 · 延庆区 · 距离 45km</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex gap-1">
+                                    <span class="difficulty-badge difficulty-5c text-xs">5c</span>
+                                    <span class="difficulty-badge difficulty-6c text-xs">6c</span>
+                                </div>
+                                <span class="text-xs text-gray-500">67条线路</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 底部导航 -->
+        <div class="bottom-nav">
+            <div class="nav-item">
+                <i class="fas fa-home text-xl"></i>
+                <span class="text-xs">首页</span>
+            </div>
+            <div class="nav-item active">
+                <i class="fas fa-search text-xl"></i>
+                <span class="text-xs">搜索</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-map text-xl"></i>
+                <span class="text-xs">地图</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-heart text-xl"></i>
+                <span class="text-xs">收藏</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-user text-xl"></i>
+                <span class="text-xs">我的</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 岩场详情页 -->
+<div class="phone-container">
+    <div class="phone-screen">
+        <div class="status-bar">
+            <div>9:41</div>
+            <div>白河峡谷</div>
+            <div class="flex gap-1">
+                <i class="fas fa-signal text-sm"></i>
+                <i class="fas fa-wifi text-sm"></i>
+                <i class="fas fa-battery-three-quarters text-sm"></i>
+            </div>
+        </div>
+        
+        <div class="page">
+            <!-- 岩场头图 -->
+            <div class="card mb-6 overflow-hidden">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=250&fit=crop" 
+                         alt="白河峡谷" class="w-full h-48 object-cover">
+                    <div class="absolute top-4 right-4 flex gap-2">
+                        <button class="w-8 h-8 bg-black bg-opacity-50 rounded-full flex items-center justify-center text-white">
+                            <i class="fas fa-heart text-sm"></i>
+                        </button>
+                        <button class="w-8 h-8 bg-black bg-opacity-50 rounded-full flex items-center justify-center text-white">
+                            <i class="fas fa-share text-sm"></i>
+                        </button>
+                    </div>
+                    <div class="absolute bottom-4 left-4 text-white">
+                        <h1 class="text-2xl font-bold mb-1">白河峡谷</h1>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-map-marker-alt text-sm"></i>
+                            <span class="text-sm">北京 · 密云区</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 基本信息 -->
+            <div class="card mb-6 p-4">
+                <div class="grid grid-cols-3 gap-4 text-center">
+                    <div>
+                        <div class="text-2xl font-bold text-orange-500">158</div>
+                        <div class="text-sm text-gray-600">条线路</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold text-orange-500">4.8</div>
+                        <div class="text-sm text-gray-600">评分</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold text-orange-500">25km</div>
+                        <div class="text-sm text-gray-600">距离</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 快速操作 -->
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <button class="gradient-btn flex items-center justify-center gap-2">
+                    <i class="fas fa-directions"></i>
+                    导航前往
+                </button>
+                <button class="bg-white border border-gray-200 text-gray-700 rounded-lg px-4 py-3 flex items-center justify-center gap-2">
+                    <i class="fas fa-phone"></i>
+                    联系电话
+                </button>
+            </div>
+            
+            <!-- 岩区列表 -->
+            <div>
+                <h2 class="text-lg font-bold text-gray-800 mb-4">岩区列表</h2>
+                <div class="space-y-3">
+                    <div class="card p-4">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="font-bold text-gray-800 mb-1">红墙区域</h3>
+                                <p class="text-sm text-gray-600 mb-2">经典传统攀登区域</p>
+                                <div class="flex gap-2">
+                                    <span class="difficulty-badge difficulty-5a">5a-5c</span>
+                                    <span class="text-sm text-gray-500">23条线路</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right text-gray-400"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="card p-4">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="font-bold text-gray-800 mb-1">黄墙区域</h3>
+                                <p class="text-sm text-gray-600 mb-2">适合初学者练习</p>
+                                <div class="flex gap-2">
+                                    <span class="difficulty-badge difficulty-5b">5b-6a</span>
+                                    <span class="text-sm text-gray-500">31条线路</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right text-gray-400"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="card p-4">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="font-bold text-gray-800 mb-1">高难度区</h3>
+                                <p class="text-sm text-gray-600 mb-2">挑战性路线集中地</p>
+                                <div class="flex gap-2">
+                                    <span class="difficulty-badge difficulty-6b">6b-7a</span>
+                                    <span class="text-sm text-gray-500">18条线路</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 底部导航 -->
+        <div class="bottom-nav">
+            <div class="nav-item">
+                <i class="fas fa-home text-xl"></i>
+                <span class="text-xs">首页</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-search text-xl"></i>
+                <span class="text-xs">搜索</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-map text-xl"></i>
+                <span class="text-xs">地图</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-heart text-xl"></i>
+                <span class="text-xs">收藏</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-user text-xl"></i>
+                <span class="text-xs">我的</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 岩区详情页 -->
+<div class="phone-container">
+    <div class="phone-screen">
+        <div class="status-bar">
+            <div>9:41</div>
+            <div>红墙区域</div>
+            <div class="flex gap-1">
+                <i class="fas fa-signal text-sm"></i>
+                <i class="fas fa-wifi text-sm"></i>
+                <i class="fas fa-battery-three-quarters text-sm"></i>
+            </div>
+        </div>
+        
+        <div class="page">
+            <!-- 岩区头部 -->
+            <div class="card mb-6 p-4">
+                <h1 class="text-xl font-bold text-gray-800 mb-2">红墙区域</h1>
+                <p class="text-gray-600 mb-3">白河峡谷最经典的传统攀登区域，岩壁呈红色花岗岩质地，手感优秀，保护点丰富。</p>
+                <div class="flex justify-between items-center">
+                    <div class="flex gap-3">
+                        <div class="text-center">
+                            <div class="text-lg font-bold text-orange-500">23</div>
+                            <div class="text-xs text-gray-600">条线路</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-lg font-bold text-orange-500">5a-5c</div>
+                            <div class="text-xs text-gray-600">难度范围</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-lg font-bold text-orange-500">15m</div>
+                            <div class="text-xs text-gray-600">平均高度</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 筛选栏 -->
+            <div class="flex gap-2 mb-4">
+                <button class="gradient-btn text-sm px-3 py-2">全部</button>
+                <button class="bg-white border border-gray-200 text-gray-700 rounded-lg px-3 py-2 text-sm">5a</button>
+                <button class="bg-white border border-gray-200 text-gray-700 rounded-lg px-3 py-2 text-sm">5b</button>
+                <button class="bg-white border border-gray-200 text-gray-700 rounded-lg px-3 py-2 text-sm">5c</button>
+            </div>
+            
+            <!-- 线路列表 -->
+            <div class="space-y-3">
+                <div class="card p-4">
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <h3 class="font-bold text-gray-800 mb-1">经典路线</h3>
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="difficulty-badge difficulty-5b">5b</span>
+                                <span class="text-sm text-gray-600">15m · 传统攀登</span>
+                            </div>
+                            <p class="text-sm text-gray-600">入门级经典线路，手点丰富，适合新手练习</p>
+                        </div>
+                        <div class="flex flex-col items-end gap-1">
+                            <div class="flex items-center gap-1">
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <span class="text-sm text-gray-600">4.7</span>
+                            </div>
+                            <i class="fas fa-heart text-gray-300"></i>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center text-sm text-gray-500">
+                        <span>定线员：张三</span>
+                        <span>3段</span>
+                    </div>
+                </div>
+                
+                <div class="card p-4">
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <h3 class="font-bold text-gray-800 mb-1">红墙左侧</h3>
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="difficulty-badge difficulty-5c">5c</span>
+                                <span class="text-sm text-gray-600">18m · 运动攀登</span>
+                            </div>
+                            <p class="text-sm text-gray-600">技术性路线，需要良好的平衡感和耐力</p>
+                        </div>
+                        <div class="flex flex-col items-end gap-1">
+                            <div class="flex items-center gap-1">
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <span class="text-sm text-gray-600">4.5</span>
+                            </div>
+                            <i class="fas fa-heart text-red-500"></i>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center text-sm text-gray-500">
+                        <span>定线员：李四</span>
+                        <span>2段</span>
+                    </div>
+                </div>
+                
+                <div class="card p-4">
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <h3 class="font-bold text-gray-800 mb-1">挑战者之路</h3>
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="difficulty-badge difficulty-6a">6a</span>
+                                <span class="text-sm text-gray-600">20m · 混合攀登</span>
+                            </div>
+                            <p class="text-sm text-gray-600">高难度路线，包含技术性动作和力量要求</p>
+                        </div>
+                        <div class="flex flex-col items-end gap-1">
+                            <div class="flex items-center gap-1">
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <span class="text-sm text-gray-600">4.9</span>
+                            </div>
+                            <i class="fas fa-heart text-gray-300"></i>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center text-sm text-gray-500">
+                        <span>定线员：王五</span>
+                        <span>4段</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 底部导航 -->
+        <div class="bottom-nav">
+            <div class="nav-item">
+                <i class="fas fa-home text-xl"></i>
+                <span class="text-xs">首页</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-search text-xl"></i>
+                <span class="text-xs">搜索</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-map text-xl"></i>
+                <span class="text-xs">地图</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-heart text-xl"></i>
+                <span class="text-xs">收藏</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-user text-xl"></i>
+                <span class="text-xs">我的</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 线路详情页 -->
+<div class="phone-container">
+    <div class="phone-screen">
+        <div class="status-bar">
+            <div>9:41</div>
+            <div>经典路线</div>
+            <div class="flex gap-1">
+                <i class="fas fa-signal text-sm"></i>
+                <i class="fas fa-wifi text-sm"></i>
+                <i class="fas fa-battery-three-quarters text-sm"></i>
+            </div>
+        </div>
+        
+        <div class="page">
+            <!-- 线路头部信息 -->
+            <div class="card mb-6 p-4">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h1 class="text-xl font-bold text-gray-800 mb-2">经典路线</h1>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="difficulty-badge difficulty-5b text-base">5b</span>
+                            <span class="text-gray-600">15m</span>
+                            <span class="text-gray-600">传统攀登</span>
+                        </div>
+                        <p class="text-gray-600">入门级经典线路，手点丰富，适合新手练习传统攀登技巧</p>
+                    </div>
+                    <div class="flex flex-col items-end gap-2">
+                        <div class="flex items-center gap-1">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <span class="font-bold">4.7</span>
+                        </div>
+                        <button class="w-10 h-10 bg-red-50 rounded-full flex items-center justify-center">
+                            <i class="fas fa-heart text-red-500"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-3 gap-4 text-center border-t pt-4">
+                    <div>
+                        <div class="text-lg font-bold text-orange-500">3</div>
+                        <div class="text-sm text-gray-600">段数</div>
+                    </div>
+                    <div>
+                        <div class="text-lg font-bold text-orange-500">张三</div>
+                        <div class="text-sm text-gray-600">定线员</div>
+                    </div>
+                    <div>
+                        <div class="text-lg font-bold text-orange-500">2019</div>
+                        <div class="text-sm text-gray-600">开线年份</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 路线图 -->
+            <div class="card mb-6 overflow-hidden">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1522163182402-834f871fd851?w=400&h=300&fit=crop" 
+                         alt="路线图" class="w-full h-48 object-cover">
+                    <div class="absolute inset-0 bg-black bg-opacity-20"></div>
+                    <div class="absolute top-4 left-4 text-white">
+                        <h3 class="font-bold mb-1">路线示意图</h3>
+                        <p class="text-sm opacity-90">点击查看大图</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 段详情 -->
+            <div class="mb-6">
+                <h2 class="text-lg font-bold text-gray-800 mb-4">段详情</h2>
+                <div class="space-y-3">
+                    <div class="card p-4">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="font-bold text-gray-800">第1段</h3>
+                            <span class="difficulty-badge difficulty-5a">5a</span>
+                        </div>
+                        <div class="space-y-2 text-sm text-gray-600">
+                            <div class="flex justify-between">
+                                <span>高度：</span>
+                                <span>5m</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>保护：</span>
+                                <span>3个固定点</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>特点：</span>
+                                <span>大手点，适合热身</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card p-4">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="font-bold text-gray-800">第2段</h3>
+                            <span class="difficulty-badge difficulty-5b">5b</span>
+                        </div>
+                        <div class="space-y-2 text-sm text-gray-600">
+                            <div class="flex justify-between">
+                                <span>高度：</span>
+                                <span>6m</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>保护：</span>
+                                <span>4个固定点</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>特点：</span>
+                                <span>技术性横移</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card p-4">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="font-bold text-gray-800">第3段</h3>
+                            <span class="difficulty-badge difficulty-5b">5b</span>
+                        </div>
+                        <div class="space-y-2 text-sm text-gray-600">
+                            <div class="flex justify-between">
+                                <span>高度：</span>
+                                <span>4m</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>保护：</span>
+                                <span>2个固定点</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>特点：</span>
+                                <span>顶端收尾</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 注意事项 -->
+            <div class="card p-4 mb-6">
+                <h3 class="font-bold text-gray-800 mb-3 flex items-center gap-2">
+                    <i class="fas fa-exclamation-triangle text-orange-500"></i>
+                    注意事项
+                </h3>
+                <ul class="text-sm text-gray-600 space-y-1">
+                    <li>• 建议携带60米动力绳</li>
+                    <li>• 需要准备传统保护器材</li>
+                    <li>• 下降时注意岩壁松动石块</li>
+                    <li>• 雨后24小时内不建议攀登</li>
+                </ul>
+            </div>
+            
+            <!-- 评价区域 -->
+            <div>
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-bold text-gray-800">攀登评价</h2>
+                    <button class="text-orange-500 text-sm">写评价</button>
+                </div>
+                
+                <div class="space-y-3">
+                    <div class="card p-4">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
+                                <span class="text-sm font-bold text-orange-600">李</span>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-800">李攀岩</p>
+                                <div class="flex items-center gap-1">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star text-xs"></i>
+                                        <i class="fas fa-star text-xs"></i>
+                                        <i class="fas fa-star text-xs"></i>
+                                        <i class="fas fa-star text-xs"></i>
+                                        <i class="fas fa-star text-xs"></i>
+                                    </div>
+                                    <span class="text-xs text-gray-500">2天前</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600">非常适合新手的线路，手点清晰，保护到位。推荐！</p>
+                    </div>
+                    
+                    <div class="card p-4">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                <span class="text-sm font-bold text-blue-600">王</span>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-800">王登山</p>
+                                <div class="flex items-center gap-1">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star text-xs"></i>
+                                        <i class="fas fa-star text-xs"></i>
+                                        <i class="fas fa-star text-xs"></i>
+                                        <i class="fas fa-star text-xs"></i>
+                                        <i class="far fa-star text-xs"></i>
+                                    </div>
+                                    <span class="text-xs text-gray-500">1周前</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600">第二段的横移有点难度，需要一定技巧。整体不错。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 底部导航 -->
+        <div class="bottom-nav">
+            <div class="nav-item">
+                <i class="fas fa-home text-xl"></i>
+                <span class="text-xs">首页</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-search text-xl"></i>
+                <span class="text-xs">搜索</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-map text-xl"></i>
+                <span class="text-xs">地图</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-heart text-xl"></i>
+                <span class="text-xs">收藏</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-user text-xl"></i>
+                <span class="text-xs">我的</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 搜索页 -->
+<div class="phone-container">
+    <div class="phone-screen">
+        <div class="status-bar">
+            <div>9:41</div>
+            <div>搜索</div>
+            <div class="flex gap-1">
+                <i class="fas fa-signal text-sm"></i>
+                <i class="fas fa-wifi text-sm"></i>
+                <i class="fas fa-battery-three-quarters text-sm"></i>
+            </div>
+        </div>
+        
+        <div class="page">
+            <!-- 搜索框 -->
+            <div class="card mb-6 p-4">
+                <div class="flex items-center gap-3 mb-4">
+                    <i class="fas fa-search text-gray-400"></i>
+                    <input type="text" placeholder="搜索岩场、线路..." class="flex-1 outline-none text-gray-700">
+                    <button class="text-orange-500">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                </div>
+                
+                <!-- 筛选条件 -->
+                <div class="space-y-3">
+                    <div>
+                        <label class="text-sm text-gray-600 mb-2 block">难度范围</label>
+                        <div class="flex gap-2">
+                            <button class="difficulty-badge difficulty-5a">5a</button>
+                            <button class="difficulty-badge difficulty-5b">5b</button>
+                            <button class="difficulty-badge difficulty-5c">5c</button>
+                            <button class="difficulty-badge difficulty-6a">6a</button>
+                            <button class="difficulty-badge difficulty-6b">6b</button>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="text-sm text-gray-600 mb-2 block">攀登类型</label>
+                        <div class="flex gap-2">
+                            <button class="px-3 py-1 bg-orange-100 text-orange-600 rounded-full text-sm">传统攀登</button>
+                            <button class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">运动攀登</button>
+                            <button class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">混合攀登</button>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="text-sm text-gray-600 mb-2 block">距离</label>
+                        <div class="flex gap-2">
+                            <button class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">10km内</button>
+                            <button class="px-3 py-1 bg-orange-100 text-orange-600 rounded-full text-sm">50km内</button>
+                            <button class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">100km内</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 热门搜索 -->
+            <div class="mb-6">
+                <h2 class="text-lg font-bold text-gray-800 mb-4">热门搜索</h2>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">白河峡谷</span>
+                    <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">经典路线</span>
+                    <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">5b难度</span>
+                    <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">传统攀登</span>
+                    <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">后河峡谷</span>
+                    <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">新手路线</span>
+                </div>
+            </div>
+            
+            <!-- 搜索历史 -->
+            <div>
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-bold text-gray-800">搜索历史</h2>
+                    <button class="text-gray-400 text-sm">清空</button>
+                </div>
+                
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between py-2">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-history text-gray-400"></i>
+                            <span class="text-gray-700">白河峡谷 红墙区域</span>
+                        </div>
+                        <i class="fas fa-times text-gray-400"></i>
+                    </div>
+                    
+                    <div class="flex items-center justify-between py-2">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-history text-gray-400"></i>
+                            <span class="text-gray-700">5c难度线路</span>
+                        </div>
+                        <i class="fas fa-times text-gray-400"></i>
+                    </div>
+                    
+                    <div class="flex items-center justify-between py-2">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-history text-gray-400"></i>
+                            <span class="text-gray-700">龙庆峡</span>
+                        </div>
+                        <i class="fas fa-times text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 底部导航 -->
+        <div class="bottom-nav">
+            <div class="nav-item">
+                <i class="fas fa-home text-xl"></i>
+                <span class="text-xs">首页</span>
+            </div>
+            <div class="nav-item active">
+                <i class="fas fa-search text-xl"></i>
+                <span class="text-xs">搜索</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-map text-xl"></i>
+                <span class="text-xs">地图</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-heart text-xl"></i>
+                <span class="text-xs">收藏</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-user text-xl"></i>
+                <span class="text-xs">我的</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 地图页 -->
+<div class="phone-container">
+    <div class="phone-screen">
+        <div class="status-bar">
+            <div>9:41</div>
+            <div>地图</div>
+            <div class="flex gap-1">
+                <i class="fas fa-signal text-sm"></i>
+                <i class="fas fa-wifi text-sm"></i>
+                <i class="fas fa-battery-three-quarters text-sm"></i>
+            </div>
+        </div>
+        
+        <div class="relative h-full">
+            <!-- 地图区域 -->
+            <div class="absolute inset-0 bg-gradient-to-br from-green-100 to-blue-100">
+                <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=400&h=600&fit=crop" 
+                     alt="地图" class="w-full h-full object-cover opacity-80">
+                
+                <!-- 地图标记点 -->
+                <div class="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white shadow-lg">
+                        <i class="fas fa-mountain text-sm"></i>
+                    </div>
+                    <div class="bg-white px-2 py-1 rounded shadow-md text-xs mt-1 whitespace-nowrap">
+                        白河峡谷
+                    </div>
+                </div>
+                
+                <div class="absolute top-1/2 left-1/3 transform -translate-x-1/2 -translate-y-1/2">
+                    <div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white shadow-lg">
+                        <i class="fas fa-mountain text-sm"></i>
+                    </div>
+                    <div class="bg-white px-2 py-1 rounded shadow-md text-xs mt-1 whitespace-nowrap">
+                        后河峡谷
+                    </div>
+                </div>
+                
+                <div class="absolute top-2/3 right-1/3 transform translate-x-1/2 -translate-y-1/2">
+                    <div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white shadow-lg">
+                        <i class="fas fa-mountain text-sm"></i>
+                    </div>
+                    <div class="bg-white px-2 py-1 rounded shadow-md text-xs mt-1 whitespace-nowrap">
+                        龙庆峡
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 顶部控制栏 -->
+            <div class="absolute top-16 left-4 right-4 z-10">
+                <div class="flex gap-2">
+                    <div class="flex-1 bg-white rounded-lg p-3 shadow-md">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-search text-gray-400"></i>
+                            <input type="text" placeholder="搜索地点..." class="flex-1 outline-none text-sm">
+                        </div>
+                    </div>
+                    <button class="w-12 h-12 bg-white rounded-lg shadow-md flex items-center justify-center">
+                        <i class="fas fa-crosshairs text-gray-600"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 底部信息卡片 -->
+            <div class="absolute bottom-20 left-4 right-4 z-10">
+                <div class="card p-4">
+                    <div class="flex items-center gap-3 mb-3">
+                        <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=60&h=60&fit=crop" 
+                             alt="白河峡谷" class="w-12 h-12 rounded-lg object-cover">
+                        <div class="flex-1">
+                            <h3 class="font-bold text-gray-800">白河峡谷</h3>
+                            <p class="text-sm text-gray-600">距离 25km · 4.8⭐</p>
+                        </div>
+                        <button class="gradient-btn text-sm px-4 py-2">
+                            导航
+                        </button>
+                    </div>
+                    <div class="flex gap-2">
+                        <span class="difficulty-badge difficulty-5a text-xs">5a-5c</span>
+                        <span class="text-xs text-gray-500">158条线路</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 右侧工具栏 -->
+            <div class="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 space-y-2">
+                <button class="w-10 h-10 bg-white rounded-lg shadow-md flex items-center justify-center">
+                    <i class="fas fa-plus text-gray-600"></i>
+                </button>
+                <button class="w-10 h-10 bg-white rounded-lg shadow-md flex items-center justify-center">
+                    <i class="fas fa-minus text-gray-600"></i>
+                </button>
+                <button class="w-10 h-10 bg-white rounded-lg shadow-md flex items-center justify-center">
+                    <i class="fas fa-layer-group text-gray-600"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 底部导航 -->
+        <div class="bottom-nav">
+            <div class="nav-item">
+                <i class="fas fa-home text-xl"></i>
+                <span class="text-xs">首页</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-search text-xl"></i>
+                <span class="text-xs">搜索</span>
+            </div>
+            <div class="nav-item active">
+                <i class="fas fa-map text-xl"></i>
+                <span class="text-xs">地图</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-heart text-xl"></i>
+                <span class="text-xs">收藏</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-user text-xl"></i>
+                <span class="text-xs">我的</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 个人中心页 -->
+<div class="phone-container">
+    <div class="phone-screen">
+        <div class="status-bar">
+            <div>9:41</div>
+            <div>我的</div>
+            <div class="flex gap-1">
+                <i class="fas fa-signal text-sm"></i>
+                <i class="fas fa-wifi text-sm"></i>
+                <i class="fas fa-battery-three-quarters text-sm"></i>
+            </div>
+        </div>
+        
+        <div class="page">
+            <!-- 用户信息 -->
+            <div class="card mb-6 p-6">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-16 h-16 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center text-white text-xl font-bold">
+                        攀
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-lg font-bold text-gray-800 mb-1">攀岩爱好者</h2>
+                        <p class="text-sm text-gray-600">ID: 12345678</p>
+                    </div>
+                    <button class="text-orange-500">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </div>
+                
+                <div class="grid grid-cols-3 gap-4 text-center">
+                    <div>
+                        <div class="text-xl font-bold text-orange-500">23</div>
+                        <div class="text-sm text-gray-600">已攀登</div>
+                    </div>
+                    <div>
+                        <div class="text-xl font-bold text-orange-500">8</div>
+                        <div class="text-sm text-gray-600">收藏</div>
+                    </div>
+                    <div>
+                        <div class="text-xl font-bold text-orange-500">156</div>
+                        <div class="text-sm text-gray-600">积分</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 功能菜单 -->
+            <div class="space-y-4">
+                <div class="card">
+                    <div class="p-4">
+                        <h3 class="font-bold text-gray-800 mb-3">我的记录</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between py-2">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-heart text-orange-500 text-sm"></i>
+                                    </div>
+                                    <span class="text-gray-700">我的收藏</span>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </div>
+                            
+                            <div class="flex items-center justify-between py-2">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-check text-blue-500 text-sm"></i>
+                                    </div>
+                                    <span class="text-gray-700">攀登记录</span>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </div>
+                            
+                            <div class="flex items-center justify-between py-2">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-camera text-green-500 text-sm"></i>
+                                    </div>
+                                    <span class="text-gray-700">我的照片</span>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="p-4">
+                        <h3 class="font-bold text-gray-800 mb-3">设置</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between py-2">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-cog text-purple-500 text-sm"></i>
+                                    </div>
+                                    <span class="text-gray-700">偏好设置</span>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </div>
+                            
+                            <div class="flex items-center justify-between py-2">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-bell text-yellow-500 text-sm"></i>
+                                    </div>
+                                    <span class="text-gray-700">消息通知</span>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </div>
+                            
+                            <div class="flex items-center justify-between py-2">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-shield-alt text-red-500 text-sm"></i>
+                                    </div>
+                                    <span class="text-gray-700">隐私安全</span>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="p-4">
+                        <h3 class="font-bold text-gray-800 mb-3">其他</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between py-2">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-question-circle text-gray-500 text-sm"></i>
+                                    </div>
+                                    <span class="text-gray-700">帮助中心</span>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </div>
+                            
+                            <div class="flex items-center justify-between py-2">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-info-circle text-gray-500 text-sm"></i>
+                                    </div>
+                                    <span class="text-gray-700">关于我们</span>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 底部导航 -->
+        <div class="bottom-nav">
+            <div class="nav-item">
+                <i class="fas fa-home text-xl"></i>
+                <span class="text-xs">首页</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-search text-xl"></i>
+                <span class="text-xs">搜索</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-map text-xl"></i>
+                <span class="text-xs">地图</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-heart text-xl"></i>
+                <span class="text-xs">收藏</span>
+            </div>
+            <div class="nav-item active">
+                <i class="fas fa-user text-xl"></i>
+                <span class="text-xs">我的</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
